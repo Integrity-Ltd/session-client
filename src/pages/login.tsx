@@ -30,7 +30,6 @@ const resolver: Resolver<FormValues> = async (values) => {
 
 const Login = () => {
     const { control, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver });
-    const [cookies, setCookie] = useCookies(['x-auth-token']);
 
     const onSubmit = (data: any) => {
         fetch(`http://localhost:8080/api/auth`, {
@@ -44,7 +43,6 @@ const Login = () => {
             cache: 'no-cache'
         }).then((response) => response.json()).then(data => {
             console.log(JSON.stringify(data));
-            setCookie("x-auth-token", data.token, { path: '/', sameSite: "none", secure: true });
             window.location.href = "/";
         }).catch((e) => {
             console.log(e);

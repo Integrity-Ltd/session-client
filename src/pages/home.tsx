@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 const Home = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(['x-auth-token', 'connect.sid']);
+    const [cookies, setCookie, removeCookie] = useCookies(['connect.sid']);
     const [userInfo, setUserInfo] = useState({ _id: 0, name: '', email: '', password: '' });
     useEffect(() => {
         fetch(`http://localhost:8080/api/users/me`, {
@@ -13,7 +13,6 @@ const Home = () => {
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': cookies["x-auth-token"],
             },
             cache: 'no-cache'
         }).then((response) => response.json()).then(data => {
@@ -30,8 +29,7 @@ const Home = () => {
             mode: 'cors',
             credentials: "include",
             headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': cookies["x-auth-token"]
+                'Content-Type': 'application/json'
             },
             cache: 'no-cache',
             body: JSON.stringify({ action: 'remove' })
@@ -45,8 +43,6 @@ const Home = () => {
         }).catch((e) => {
             console.log(e);
         });
-
-        removeCookie('x-auth-token', { path: '/', sameSite: "none", secure: true });
     }
 
     return (

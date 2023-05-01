@@ -1,18 +1,13 @@
-import { Button } from "primereact/button";
-import React, { useRef } from "react";
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 
 const UserInfo = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(['x-auth-token']);
     const [userInfo, setUserInfo] = useState({ _id: 0, name: '', email: '', password: '' });
     useEffect(() => {
         fetch(`http://localhost:8080/api/users/me`, {
             method: 'GET',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': cookies["x-auth-token"],
+                'Content-Type': 'application/json'
             },
             cache: 'no-cache'
         }).then((response) => response.json()).then(data => {

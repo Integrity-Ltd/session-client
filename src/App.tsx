@@ -3,7 +3,6 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Register from './pages/register';
 import Login from './pages/login';
