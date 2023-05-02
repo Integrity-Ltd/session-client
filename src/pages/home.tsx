@@ -7,7 +7,7 @@ const Home = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['connect.sid']);
     const [userInfo, setUserInfo] = useState({ _id: 0, name: '', email: '', password: '' });
     useEffect(() => {
-        fetch(`http://localhost:8080/api/users/me`, {
+        fetch(`/api/users/me`, {
             method: 'GET',
             mode: 'cors',
             credentials: "include",
@@ -24,7 +24,7 @@ const Home = () => {
     }, []);
 
     const logout = () => {
-        fetch(`http://localhost:8080/api/auth/logout`, {
+        fetch(`/api/auth/logout`, {
             method: 'DELETE',
             mode: 'cors',
             credentials: "include",

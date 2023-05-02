@@ -3,8 +3,6 @@ import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
 import { classNames } from "primereact/utils";
 import { Controller, Resolver, useForm } from "react-hook-form";
-import { useCookies } from 'react-cookie';
-import React from "react";
 
 interface FormValues {
     email: string;
@@ -32,7 +30,7 @@ const Login = () => {
     const { control, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver });
 
     const onSubmit = (data: any) => {
-        fetch(`http://localhost:8080/api/auth`, {
+        fetch(`/api/auth`, {
             method: 'POST',
             credentials: "include",
             mode: 'cors',

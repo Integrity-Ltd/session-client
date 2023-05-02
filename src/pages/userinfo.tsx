@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const UserInfo = () => {
     const [userInfo, setUserInfo] = useState({ _id: 0, name: '', email: '', password: '' });
     useEffect(() => {
-        fetch(`http://localhost:8080/api/users/me`, {
+        fetch(`/api/users/me`, {
             method: 'GET',
             mode: 'cors',
             headers: {

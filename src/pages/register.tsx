@@ -5,7 +5,6 @@ import { Button } from 'primereact/button';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRef } from "react";
 import { Password } from "primereact/password";
-import Axios from "axios";
 
 interface FormValues {
     name: string;
@@ -40,9 +39,15 @@ const verifyToken = async (token: string): Promise<any[] | undefined> => {
     let APIResponse = [];
 
     try {
-        let response = await Axios.post(`http://localhost:8080/api/auth/verify-token`, {
-            reCAPTCHA_TOKEN: token,
-            Secret_Key: process.env.REACT_APP_SECRET_KEY,
+        let response: any = await fetch(`/api/auth/verify-token`, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            body: JSON.stringify({
+                reCAPTCHA_TOKEN: token,
+                Secret_Key: process.env.REACT_APP_SECRET_KEY
+            }),
+            cache: 'no-cache'
         });
 
         APIResponse.push(response['data']);
@@ -65,9 +70,10 @@ const Register = () => {
 
             if (valid_token != undefined && valid_token[0].success === true) {
                 console.log("verified");
-                fetch(`http://localhost:8080/api/users`, {
+                fetch(`/api/users`, {
                     method: 'POST',
                     mode: 'cors',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     },
