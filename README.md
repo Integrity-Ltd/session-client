@@ -1,6 +1,6 @@
 # session-client
 
-Session handling example with PrimeReact and CORS
+Session handling example with PrimeReact http-proxy-middleware
 
 ## Install
 
