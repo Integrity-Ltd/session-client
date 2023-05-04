@@ -1,15 +1,11 @@
 import { Button } from "primereact/button";
-import React from "react";
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 
 const Home = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(['connect.sid']);
-    const [userInfo, setUserInfo] = useState({ _id: 0, name: '', email: '', password: '' });
+    const [userInfo, setUserInfo] = useState({ _id: 0, name: '', email: '' });
     useEffect(() => {
         fetch(`/api/users/me`, {
             method: 'GET',
-            mode: 'cors',
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +22,6 @@ const Home = () => {
     const logout = () => {
         fetch(`/api/auth/logout`, {
             method: 'DELETE',
-            mode: 'cors',
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json'

@@ -39,18 +39,23 @@ const verifyToken = async (token: string): Promise<any[] | undefined> => {
     let APIResponse = [];
 
     try {
+        let params = JSON.stringify({
+            reCAPTCHA_TOKEN: token,
+            Secret_Key: process.env.REACT_APP_SECRET_KEY
+        });
+
         let response: any = await fetch(`/api/auth/verify-token`, {
-            method: 'GET',
-            mode: 'cors',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             credentials: 'include',
-            body: JSON.stringify({
-                reCAPTCHA_TOKEN: token,
-                Secret_Key: process.env.REACT_APP_SECRET_KEY
-            }),
+            body: params,
             cache: 'no-cache'
         });
 
-        APIResponse.push(response['data']);
+        let responseJSON: any = await response.json();
+        APIResponse.push(responseJSON['verification_info']);
         return APIResponse;
     } catch (error) {
         console.log(error);
@@ -68,11 +73,10 @@ const Register = () => {
         if (token) {
             let valid_token = await verifyToken(token);
 
-            if (valid_token != undefined && valid_token[0].success === true) {
+            if ((valid_token !== undefined) && (valid_token.length > 0) && (valid_token[0].success === true)) {
                 console.log("verified");
                 fetch(`/api/users`, {
                     method: 'POST',
-                    mode: 'cors',
                     credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
