@@ -11,7 +11,9 @@ const Home = () => {
                 'Content-Type': 'application/json',
             },
             cache: 'no-cache'
-        }).then((response) => response.json()).then(data => {
+        }).then((response) => {
+            return response.json();
+        }).then(data => {
             console.log(JSON.stringify(data));
             setUserInfo(data);
         }).catch((e) => {
@@ -29,7 +31,7 @@ const Home = () => {
             cache: 'no-cache',
             body: JSON.stringify({ action: 'remove' })
         }).then((response) => {
-            response.text();
+            return response.text();
         }).catch((e) => {
             console.log(e);
         }).then(data => {

@@ -38,7 +38,9 @@ const Login = () => {
             },
             body: JSON.stringify(data),
             cache: 'no-cache'
-        }).then((response) => response.json()).then(data => {
+        }).then((response) => {
+            return response.json();
+        }).then(data => {
             console.log(JSON.stringify(data));
             window.location.href = "/";
         }).catch((e) => {
